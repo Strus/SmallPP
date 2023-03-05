@@ -1,34 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
-struct spp_object {
-  void *vtable;
-};
-
-struct spp_object_vtable {
-  void (*destroy)(struct spp_object *);
-};
-
-void spp_object_destroy(struct spp_object *self);
-
-struct spp_object *spp_object_create() {
-  struct spp_object *self = malloc(sizeof(struct spp_object));
-
-  static const struct spp_object_vtable vtable = {
-      .destroy = spp_object_destroy,
-  };
-  self->vtable = (void *)&vtable;
-
-  return self;
-}
-
-void spp_object_destroy(struct spp_object *self) { free(self); }
-
-#define spp_vcall(type, object, func, ...)                                     \
-  ((struct type##_vtable *)((struct type *)object)->super.vtable)              \
-      ->func((struct type *)object, ##__VA_ARGS__)
-
-// ###########################################
+#include "smallpp/object.h"
 
 struct my_object {
   struct spp_object super;
@@ -37,33 +11,36 @@ struct my_object {
 
 struct my_object_vtable {
   struct spp_object_vtable super;
-  void (*describe)(struct my_object *);
+  int (*calculate)(struct my_object *);
 };
 
-void my_object_describe(struct my_object *self) {
-  printf("This is my object some_value: %d\n", self->some_value);
-}
+int my_object_calculate(struct my_object *self) { return self->some_value * 2; }
+void my_object_temp(struct spp_object *self) {}
 
 struct my_object *my_object_create(int val) {
   struct my_object *self = malloc(sizeof(struct my_object));
   self->super = *spp_object_create();
 
-  static const struct my_object_vtable vtable = {
-      .super =
-          {
-              .destroy = spp_object_destroy,
-          },
-      .describe = my_object_describe,
+  static struct my_object_vtable vtable = {
+      .calculate = my_object_calculate,
   };
-  self->super.vtable = (void *)&vtable;
+  spp_init_vtable(self, vtable);
 
   self->some_value = val;
 
   return self;
 }
 
-// ###########################################
+int main() {
+  struct my_object *obj = my_object_create(5);
+  printf("%d\n", spp_vcall(my_object, obj, calculate));
+  printf("%d\n", spp_vcall(spp_object, obj, hash));
 
+  spp_vcall(spp_object, obj, destroy);
+  return 0;
+}
+
+#if 0
 struct my_object_derived {
   struct my_object super;
   int some_other_value;
@@ -91,16 +68,4 @@ struct my_object_derived *my_object_derived_create(int val, int other_val) {
 
   return self;
 }
-
-// ###########################################
-
-int main() {
-  struct my_object *obj = my_object_create(5);
-  struct my_object_derived *obj_derived = my_object_derived_create(5, 10);
-
-  spp_vcall(my_object, obj, describe);
-  spp_vcall(my_object, obj_derived, describe);
-
-  free(obj);
-  return 0;
-}
+#endif
