@@ -24,14 +24,15 @@ struct spp_object *spp_object_create() {
   return self;
 }
 
-#define spp_init_vtable(self, vtable)                                          \
-  size_t methods_count = sizeof(struct spp_object_vtable) / sizeof(void *);    \
+#define spp_init_vtable(self, vtable, super_type)                              \
+  size_t methods_count = sizeof(struct super_type##_vtable) / sizeof(void *);  \
   for (size_t i = 0; i < methods_count; i++) {                                 \
-    if (!((void **)(&(vtable.super)))[i]) {                                    \
-      ((void **)(&(vtable.super)))[i] = ((void **)(self->super.vtable))[i];    \
+    if (!((void **)(&(vtable)))[i]) {                                          \
+      ((void **)(&(vtable)))[i] =                                              \
+          ((void **)(((struct spp_object *)self)->vtable))[i];                 \
     }                                                                          \
   }                                                                            \
-  self->super.vtable = (void *)&vtable;
+  ((struct spp_object *)self)->vtable = (void *)&vtable;
 
 #define spp_vcall(type, object, func, ...)                                     \
   ((struct type##_vtable *)((struct spp_object *)object)->vtable)              \
