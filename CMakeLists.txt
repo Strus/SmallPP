@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.25)
 project("SmallPP")
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
-SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -Werror")
+SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -Werror -O0 -g")
 
 set(
     sources 
