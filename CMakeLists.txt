@@ -7,6 +7,8 @@ SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -Werror -O0 -g")
 set(
     sources 
     src/object.c
+    src/smallpp.c
+    src/type.c
 )
 
 set(

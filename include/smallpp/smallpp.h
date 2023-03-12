@@ -1,7 +1,10 @@
 #ifndef SMALL_PP_H
 #define SMALL_PP_H
 
+#include <stdbool.h>
 #include <stdlib.h>
+
+#include "object.h"
 
 /**
  * Initialize object vtable.
@@ -37,5 +40,7 @@
 #define spp_create(type, ...)                                                                                          \
     malloc(sizeof(struct type));                                                                                       \
     type##_init(self, ##__VA_ARGS__);
+
+bool spp_isinstance(struct spp_object *self, struct spp_type const *type);
 
 #endif // SMALL_PP_H

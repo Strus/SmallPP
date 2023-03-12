@@ -1,8 +1,12 @@
+#include <stdio.h>
+#include <string.h>
+
 #include "smallpp/object.h"
 #include "smallpp/smallpp.h"
 
 struct my_object {
     struct spp_object super;
+
     int *array;
     int len;
 };
@@ -21,8 +25,21 @@ int my_object_calculate(struct my_object *self) {
     return self->len * 2;
 }
 
+struct spp_type *my_object_type() {
+    static struct spp_type *type = NULL;
+    if (type) {
+        return type;
+    }
+
+    type = malloc(sizeof(struct spp_type));
+    type->super = spp_object_type();
+    strncpy(type->name, "my_object", SPP_TYPE_MAX_LENGTH);
+
+    return type;
+}
+
 void my_object_init(struct my_object *self, int val) {
-    spp_object_init(&self->super);
+    spp_object_init(&self->super, my_object_type());
 
     static struct my_object_vtable vtable = {
         .super =
