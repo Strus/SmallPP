@@ -18,3 +18,29 @@ Currently implemented features:
 
 * single object inheritance
   * virtual function calls
+  * ability to check if object is an instance of another object
+
+## Building
+
+This project uses CMake as a build system. First build the CMake files:
+
+```
+cmake -S . -B <output_folder_path>
+```
+
+And then compile with:
+
+```shell
+cd <output_folder_path>
+make
+```
+
+Library and all examples' executables will be build inside your `<output_folder_path>`
+
+---
+
+THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO 
+THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. 
+IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, 
+WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE 
+OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
