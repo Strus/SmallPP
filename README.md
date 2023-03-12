@@ -1,11 +1,11 @@
 # SmallPP
 
-SmallPP is an objective-oriented framework for C. Like small C++. Small CPP. SmallPP. Ok, I will stop.
+SmallPP is an object-oriented framework for C. Like small C++. Small CPP. SmallPP. Ok, I will stop.
 
 ## Why?
 
 A couple years ago I've worked in Cubiware (later Rovi later TiVo later Xperi... new year - new owner). We made
-software for Set-Top Boxes which was written in C. But it wasn't an ordinary C codebase - we had an objective-oriented
+software for Set-Top Boxes which was written in C. But it wasn't an ordinary C codebase - we had an object-oriented
 framework! And it was great, it has inheritance, polymorphism, interfaces, standard library with data types like
 string, hash table, array etc. Super cool stuff.
 
