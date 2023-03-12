@@ -1,7 +1,8 @@
-#include "smallpp/smallpp.h"
-#include "smallpp/object.h"
 #include <stdio.h>
 #include <string.h>
+
+#include "smallpp/object.h"
+#include "smallpp/smallpp.h"
 
 bool spp_isinstance(struct spp_object *self, struct spp_type const *type) {
     if (!self || !type) {

@@ -31,9 +31,7 @@ struct spp_type *my_object_type() {
         return type;
     }
 
-    type = malloc(sizeof(struct spp_type));
-    type->super = spp_object_type();
-    strncpy(type->name, "my_object", SPP_TYPE_MAX_LENGTH);
+    spp_type_init(&type, spp_object_type(), "my_object");
 
     return type;
 }
