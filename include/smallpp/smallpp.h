@@ -41,6 +41,6 @@
     malloc(sizeof(struct type));                                                                                       \
     type##_init(self, ##__VA_ARGS__);
 
-bool spp_isinstance(struct spp_object *self, struct spp_type const *type);
+bool spp_isinstance(spp_object self, struct spp_type const *type);
 
 #endif // SMALL_PP_H

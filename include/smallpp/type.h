@@ -7,13 +7,14 @@
  * Represent type.
  */
 struct spp_type;
+typedef struct spp_type *spp_type;
 
-struct spp_type *spp_type_get_super(struct spp_type *type);
+struct spp_type *spp_type_get_super(spp_type type);
 
 /**
  * Get type name.
  */
-const char *spp_type_get_name(struct spp_type *type);
+const char *spp_type_get_name(spp_type type);
 
 /**
  * Initalize type.
@@ -22,6 +23,6 @@ const char *spp_type_get_name(struct spp_type *type);
  * @param super_type  super type (cannot be NULL)
  * @param name        type name (cannot be NULL)
  */
-void spp_type_init(struct spp_type **type, struct spp_type *super_type, const char *name);
+void spp_type_init(spp_type *type, spp_type super_type, const char *name);
 
 #endif // !TYPE_H

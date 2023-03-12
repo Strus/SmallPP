@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 
+#include "my_object.h"
 #include "smallpp/object.h"
 #include "smallpp/smallpp.h"
 
@@ -11,22 +12,17 @@ struct my_object {
     int len;
 };
 
-struct my_object_vtable {
-    struct spp_object_vtable super;
-    int (*calculate)(struct my_object *);
-};
-
-void my_object_destroy(struct spp_object *super) {
+void my_object_destroy(spp_object super) {
     struct my_object *self = (struct my_object *)super;
     free(self->array);
 }
 
-int my_object_calculate(struct my_object *self) {
+int my_object_calculate(my_object self) {
     return self->len * 2;
 }
 
 struct spp_type *my_object_type() {
-    static struct spp_type *type = NULL;
+    static spp_type type = NULL;
     if (type) {
         return type;
     }
@@ -36,7 +32,7 @@ struct spp_type *my_object_type() {
     return type;
 }
 
-void my_object_init(struct my_object *self, int val) {
+void my_object_init(my_object self, int val) {
     spp_object_init(&self->super, my_object_type());
 
     static struct my_object_vtable vtable = {
@@ -52,7 +48,7 @@ void my_object_init(struct my_object *self, int val) {
     self->len = val;
 }
 
-struct my_object *my_object_create(int val) {
+my_object my_object_create(int val) {
     struct my_object *self = spp_create(my_object, val);
     return self;
 }

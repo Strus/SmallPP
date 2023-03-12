@@ -12,6 +12,7 @@ struct spp_object {
     struct spp_type *type;
     void *vtable;
 };
+typedef struct spp_object *spp_object;
 
 /**
  * Base object vtable.
@@ -25,34 +26,34 @@ struct spp_object_vtable {
      * All memory should be freed inside it.
      * You need to manually call the super destructor in custom destructor.
      */
-    void (*destroy)(struct spp_object *);
+    void (*destroy)(spp_object);
 
     /**
      * Calculate hash.
      */
-    unsigned long (*hash)(struct spp_object *);
+    unsigned long (*hash)(spp_object);
 };
 
 /**
  * Destructor.
  */
-void spp_object_destroy(struct spp_object *self);
+void spp_object_destroy(spp_object self);
 
 /**
  * Calculate hash.
  */
-unsigned long spp_object_hash(struct spp_object *self);
+unsigned long spp_object_hash(spp_object self);
 
 /**
  * Get type.
  */
-struct spp_type *spp_object_type();
+spp_type spp_object_type();
 
 /**
  * Initializer.
  *
  * Should be called in custom object constructor.
  */
-void spp_object_init(struct spp_object *self, struct spp_type *type);
+void spp_object_init(spp_object self, spp_type type);
 
 #endif // OBJECT_H
