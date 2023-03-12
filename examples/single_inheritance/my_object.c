@@ -13,7 +13,7 @@ struct my_object {
 };
 
 void my_object_destroy(spp_object super) {
-    struct my_object *self = (struct my_object *)super;
+    my_object self = (my_object)super;
     free(self->array);
 }
 
@@ -21,7 +21,7 @@ int my_object_calculate(my_object self) {
     return self->len * 2;
 }
 
-struct spp_type *my_object_type() {
+spp_type my_object_type() {
     static spp_type type = NULL;
     if (type) {
         return type;
@@ -49,6 +49,6 @@ void my_object_init(my_object self, int val) {
 }
 
 my_object my_object_create(int val) {
-    struct my_object *self = spp_create(my_object, val);
+    my_object self = spp_create(my_object, val);
     return self;
 }

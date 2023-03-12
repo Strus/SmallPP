@@ -12,7 +12,7 @@ unsigned long spp_object_hash(spp_object self) {
     return (unsigned long)self;
 }
 
-struct spp_type *spp_object_type() {
+spp_type spp_object_type() {
     static spp_type type = NULL;
     if (type) {
         return type;

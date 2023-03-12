@@ -6,7 +6,7 @@
 #include "smallpp/type.h"
 
 struct spp_type {
-    struct spp_type *super;
+    spp_type super;
     char name[SPP_TYPE_MAX_LENGTH + 1];
 };
 

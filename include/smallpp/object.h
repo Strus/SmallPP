@@ -9,7 +9,7 @@
  * Every custom object should inherit from it.
  */
 struct spp_object {
-    struct spp_type *type;
+    spp_type type;
     void *vtable;
 };
 typedef struct spp_object *spp_object;

@@ -9,7 +9,7 @@
 struct spp_type;
 typedef struct spp_type *spp_type;
 
-struct spp_type *spp_type_get_super(spp_type type);
+spp_type spp_type_get_super(spp_type type);
 
 /**
  * Get type name.
