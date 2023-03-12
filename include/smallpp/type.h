@@ -6,10 +6,9 @@
 /**
  * Represent type.
  */
-struct spp_type {
-    struct spp_type *super;
-    char name[SPP_TYPE_MAX_LENGTH + 1];
-};
+struct spp_type;
+
+struct spp_type *spp_type_get_super(struct spp_type *type);
 
 /**
  * Get type name.

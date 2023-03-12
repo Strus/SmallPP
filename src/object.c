@@ -18,10 +18,7 @@ struct spp_type *spp_object_type() {
         return type;
     }
 
-    type = malloc(sizeof(struct spp_type));
-    type->super = NULL;
-    strncpy(type->name, "spp_object", SPP_TYPE_MAX_LENGTH);
-
+    spp_type_init(&type, NULL, "spp_object");
     return type;
 }
 
